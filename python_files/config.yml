@@ -1,0 +1,12 @@
+dataset_path: /workspace/22gnn/kaggle_data/webmd.ftr
+
+train: inference
+
+version_dir: /workspace/22gnn/python_files/datas/v_1
+
+m_ratio: 0.8
+input_f: 10
+hidden_f: 20
+output_f: 5
+
+seed: 123

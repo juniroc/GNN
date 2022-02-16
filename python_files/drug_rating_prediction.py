@@ -10,27 +10,45 @@ import itertools
 import torchmetrics
 import pickle
 import model_file
+import yaml
+import random
 
 import argparse
 
-parser = argparse.ArgumentParser(description='get argument from argparse')
-parser.add_argument('--dataset-path', '-dp', type=str, help='dataset path')
-parser.add_argument('--train', '-t', type=str, help='`train` / `inference` set mode ')
-parser.add_argument('--version-dir', type=str, help='data version(pickle files) path')
-parser.add_argument('--m-ratio', type=float, help='train/val-ratio', default=0.8)
-parser.add_argument('--input-f', type=int, help='number of input features', default=10)
-parser.add_argument('--hidden-f', type=int, help='number of hidden features', default=20)
-parser.add_argument('--output-f', type=int, help='number of output features', default=5)
 
 
+# parser = argparse.ArgumentParser(description='get argument from argparse')
+# parser.add_argument('--dataset-path', '-dp', type=str, help='dataset path')
+# parser.add_argument('--train', '-t', type=str, help='`train` / `inference` set mode ')
+# parser.add_argument('--version-dir', type=str, help='data version(pickle files) path')
+# parser.add_argument('--m-ratio', type=float, help='train/val-ratio', default=0.8)
+# parser.add_argument('--input-f', type=int, help='number of input features', default=10)
+# parser.add_argument('--hidden-f', type=int, help='number of hidden features', default=20)
+# parser.add_argument('--output-f', type=int, help='number of output features', default=5)
 
-args = parser.parse_args()
+# args = parser.parse_args()
 
+opt = yaml.load(open('./config.yml'), Loader=yaml.FullLoader)
+
+## seed initialize
+torch.manual_seed(opt['seed'])
+# torch.cuda.manual_seed_all(opt['seed'])   # if use multi-GPU
+torch.backends.cudnn.deterministic = True
+torch.backends.cudnn.benchmark = False
+np.random.seed(opt['seed'])
+random.seed(opt['seed'])
+
+
+# create graph and training
 class create_graph:
     def __init__(self):
-        self.data_path = args.dataset_path
-        self.version_dir = args.version_dir
-        self.train = args.train
+        # self.data_path = args.dataset_path
+        # self.version_dir = args.version_dir
+        # self.train = args.train
+        self.data_path = opt['dataset_path']
+        self.version_dir = opt['version_dir']
+        self.train = opt['train']
+
 
     def _get_dataset(self):
         _, extension = os.path.splitext(self.data_path)
@@ -292,12 +310,16 @@ class model_:
         
         self.creating_graph = create_graph()
         
-        self.mask_ratio = args.m_ratio
-        self.input_f = args.input_f
-        self.hidden_f = args.hidden_f
-        self.output_f = args.output_f
-        self.version_dir = args.version_dir
-        
+        # self.mask_ratio = args.m_ratio
+        # self.input_f = args.input_f
+        # self.hidden_f = args.hidden_f
+        # self.output_f = args.output_f
+        # self.version_dir = args.version_dir
+        self.mask_ratio = opt['m_ratio']
+        self.input_f = opt['input_f']
+        self.hidden_f = opt['hidden_f']
+        self.output_f = opt['output_f']
+        self.version_dir = opt['version_dir']
 
     def train(self):
         hetero_graph_t = self.creating_graph.get_graph()
@@ -365,7 +387,10 @@ class model_:
 
 if __name__ == '__main__':
     test = model_()
-    if args.train=='train':
+    # if args.train=='train':
+    if opt['train']=='train':
         test.train()
-    elif args.train=='inference':
+
+    # elif args.train=='inference':
+    elif opt['train']=='inference':
         test.infer()
