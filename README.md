@@ -1,4 +1,15 @@
-# CS224w (GNN)
+# GNN
+---
+### GNN experiment
+[1-1. drug rating prediction(from kaggle drug data)](https://github.com/juniroc/GNN/tree/main/drug_rating_prediction)
+- experiment ipynb file and explain pdf 
+- ipynb files
+
+[1-2. drug rating prediction(using config.yml hyperparameter)](https://github.com/juniroc/GNN/tree/main/python_files)
+- using config.yml hyperparameter gnn model
+- python files
+
+---
 
 ### CS224w
 
