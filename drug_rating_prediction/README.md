@@ -436,4 +436,5 @@ print("acc : ", inference_acc.item())
 - `model` 학습 과정을 테스트해보고자 `preprocessing` 과정을 단순하게 one-hot encoding 수준으로만 진행해보았음
 - `side-effect` 를 키워드 중심으로 나누어서 비슷한 약물끼리 clustering 하거나 비슷한 환자들끼리 clustering 하는 방법으로 전처리도 가능할 것
 - 해당 약물에 대한 정보를 좀 더 세분화시켜 feature embedding 할 경우 성능은 더 높아질 수 있을 것이라 예상
+- 추가적인 `Hyperparameter` 작업도 필요할 것
 
