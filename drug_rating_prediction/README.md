@@ -12,6 +12,8 @@
 - 위 그림과 같이 drug, Patient, condition 의 Features 와 노드 간의 관계를 이용해 만족도 학습
 - R-GCN 모델을 이용해 학습하여, 만족도 기반으로하는 추천 모델 학습
 
+- dataset link : `https://www.kaggle.com/datasets/rohanharode07/webmd-drug-reviews-dataset`
+
 
 ### Preprocessing
 - `null` value 제거
